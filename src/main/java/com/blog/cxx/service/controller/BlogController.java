@@ -51,7 +51,6 @@ public class BlogController {
         return R.ok().data("blogList", blogList);
     }
 
-
     /*
      * 创建博客
      * */
@@ -65,5 +64,15 @@ public class BlogController {
         } else {
             return R.error().message("创建失败");
         }
+    }
+
+    /*
+    * 查询所有博客
+    * */
+    @ApiOperation("查询所有博客")
+    @GetMapping("/listAll")
+    public R listAll(){
+        List<Blog> blogList = blogService.list();
+        return R.ok().data("blogList", blogList);
     }
 }

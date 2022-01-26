@@ -19,7 +19,7 @@
     <properties>
         <java.version>1.8</java.version>
         <!-- 使用3.5.1自动生成代码插件时， mybatis-plus的版本也要提高到3.5.1-->
-        <mybatis-plus.version>3.2.0</mybatis-plus.version>
+        <mybatis-plus.version>3.4.3</mybatis-plus.version>
         <!-- 升级到最新版本 https://baomidou.com/pages/bab2db/ -->
         <mybatis-plus-generator.version>3.5.1</mybatis-plus-generator.version>
         <velocity.version>2.0</velocity.version>
@@ -199,7 +199,7 @@
             <version>1.7.2</version>
         </dependency>
 
-        <!-- 解析客户端操作系统、浏览器 -->
+         解析客户端操作系统、浏览器
         <dependency>
             <groupId>nl.basjes.parse.useragent</groupId>
             <artifactId>yauaa</artifactId>
@@ -212,7 +212,7 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
-        <!-- hutool工具类-->
+         hutool工具类
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
