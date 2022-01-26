@@ -1,6 +1,7 @@
 package com.blog.cxx;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
@@ -45,7 +46,7 @@ public class CodeGenerator {
                     // 开启swagger2
                     .enableSwagger()
                     // 指定时间策略。
-                    .dateType(DateType.TIME_PACK)
+                    .dateType(DateType.ONLY_DATE)
                     // 注释时间策略。
                     .commentDate("yyyy-MM-dd")
                     )
@@ -82,6 +83,8 @@ public class CodeGenerator {
                         .entityBuilder()
                         // 开启lombok注解
                         .enableLombok()
+                        // 主键策略：自增
+                        .idType(IdType.AUTO)
                         // 会在实体类的属性前，添加[@TableField("nickname")]
                         .enableTableFieldAnnotation()
                         // 会在实体类的该字段上追加注解[@TableField(value = "create_time", fill = FieldFill.INSERT)]
