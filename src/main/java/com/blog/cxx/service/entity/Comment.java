@@ -1,16 +1,16 @@
 package com.blog.cxx.service.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * <p>
@@ -20,60 +20,72 @@ import lombok.experimental.Accessors;
  * @author Cxx
  * @since 2022-01-25
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@ApiModel(value="Comment对象", description="")
+@Getter
+@Setter
+@TableName("comment")
+@ApiModel(value = "Comment对象", description = "")
 public class Comment implements Serializable {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty(value = "昵称")
+    @ApiModelProperty("昵称")
+    @TableField("nickname")
     private String nickname;
 
-    @ApiModelProperty(value = "qq号")
+    @ApiModelProperty("qq号")
+    @TableField("qq")
     private String qq;
 
-    @ApiModelProperty(value = "邮箱")
+    @ApiModelProperty("邮箱")
+    @TableField("email")
     private String email;
 
-    @ApiModelProperty(value = "评论内容")
+    @ApiModelProperty("评论内容")
+    @TableField("content")
     private String content;
 
-    @ApiModelProperty(value = "头像")
+    @ApiModelProperty("头像")
+    @TableField("avator")
     private String avator;
 
-    @ApiModelProperty(value = "ip地址")
+    @ApiModelProperty("ip地址")
+    @TableField("ip")
     private String ip;
 
-    @ApiModelProperty(value = "个人网站")
+    @ApiModelProperty("个人网站")
+    @TableField("website")
     private String website;
 
-    @ApiModelProperty(value = "博客id")
+    @ApiModelProperty("博客id")
+    @TableField("blog_id")
     private Long blogId;
 
-    @ApiModelProperty(value = "博主是否回复")
+    @ApiModelProperty("博主是否回复")
+    @TableField("is_admin_comment")
     private Integer isAdminComment;
 
-    @ApiModelProperty(value = "是否公开")
+    @ApiModelProperty("是否公开")
+    @TableField("is_published")
     private Boolean isPublished;
 
-    @ApiModelProperty(value = "父评论id")
+    @ApiModelProperty("父评论id")
+    @TableField("parent_comment_id")
     private Long parentCommentId;
 
-    @ApiModelProperty(value = "父评论昵称")
+    @ApiModelProperty("父评论昵称")
+    @TableField("parent_comment_nickname")
     private String parentCommentNickname;
 
-    @ApiModelProperty(value = "创建时间")
-      @TableField(fill = FieldFill.INSERT)
-    private Date createTime;
+    @ApiModelProperty("创建时间")
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
 
-    @ApiModelProperty(value = "更新时间")
-      @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date updateTime;
+    @ApiModelProperty("更新时间")
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 
 
 }

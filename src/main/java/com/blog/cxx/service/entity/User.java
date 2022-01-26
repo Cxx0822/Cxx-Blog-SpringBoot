@@ -1,16 +1,15 @@
 package com.blog.cxx.service.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * <p>
@@ -20,45 +19,52 @@ import lombok.experimental.Accessors;
  * @author Cxx
  * @since 2022-01-25
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@ApiModel(value="User对象", description="")
+@Getter
+@Setter
+@TableName("user")
+@ApiModel(value = "User对象", description = "")
 public class User implements Serializable {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
-      @TableId(value = "id", type = IdType.ASSIGN_ID)
+    @TableId("id")
     private Long id;
 
-    @ApiModelProperty(value = "用户名")
+    @ApiModelProperty("用户名")
+    @TableField("username")
     private String username;
 
-    @ApiModelProperty(value = "密码")
+    @ApiModelProperty("密码")
+    @TableField("password")
     private String password;
 
-    @ApiModelProperty(value = "昵称")
+    @ApiModelProperty("昵称")
+    @TableField("nickname")
     private String nickname;
 
-    @ApiModelProperty(value = "头像")
+    @ApiModelProperty("头像")
+    @TableField("avatar")
     private String avatar;
 
-    @ApiModelProperty(value = "邮箱")
+    @ApiModelProperty("邮箱")
+    @TableField("email")
     private String email;
 
-    @ApiModelProperty(value = "状态")
+    @ApiModelProperty("状态")
+    @TableField("status")
     private Integer status;
 
-    @ApiModelProperty(value = "用户角色")
+    @ApiModelProperty("用户角色")
+    @TableField("role")
     private String role;
 
-    @ApiModelProperty(value = "创建时间")
-      @TableField(fill = FieldFill.INSERT)
-    private Date createTime;
+    @ApiModelProperty("创建时间")
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
 
-    @ApiModelProperty(value = "更新时间")
-      @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date updateTime;
+    @ApiModelProperty("更新时间")
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 
 
 }
