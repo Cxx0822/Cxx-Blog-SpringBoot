@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `blog`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `blog` (
-  `id` bigint NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL COMMENT '文章标题',
   `description` longtext NOT NULL COMMENT '文字描述',
   `content` longtext NOT NULL COMMENT '文章正文',
@@ -116,7 +116,7 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `id` bigint NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `username` varchar(255) DEFAULT NULL COMMENT '用户名',
   `password` varchar(255) DEFAULT NULL COMMENT '密码',
   `nickname` varchar(255) DEFAULT NULL COMMENT '昵称',
@@ -147,7 +147,7 @@ DROP TABLE IF EXISTS `visit_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `visit_log` (
-  `id` bigint NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `uuid` varchar(36) DEFAULT NULL COMMENT '访客标识码',
   `uri` varchar(255) DEFAULT NULL COMMENT '请求接口',
   `method` varchar(255) DEFAULT NULL COMMENT '请求方式',
@@ -184,7 +184,7 @@ DROP TABLE IF EXISTS `visitor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `visitor` (
-  `id` bigint NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `uuid` varchar(36) DEFAULT NULL COMMENT '访客标识码',
   `ip` varchar(255) DEFAULT NULL COMMENT 'ip',
   `ip_source` varchar(255) DEFAULT NULL COMMENT 'ip来源',
@@ -216,4 +216,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-26  8:51:32
+-- Dump completed on 2022-01-26 10:57:42
