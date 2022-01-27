@@ -9,8 +9,12 @@ import java.io.Serializable;
 import java.util.Date;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * <p>
@@ -20,8 +24,8 @@ import lombok.Setter;
  * @author Cxx
  * @since 2022-01-26
  */
-@Getter
-@Setter
+@Data
+@Accessors(chain = true)
 @TableName("blog")
 @ApiModel(value = "Blog对象", description = "")
 public class Blog implements Serializable {

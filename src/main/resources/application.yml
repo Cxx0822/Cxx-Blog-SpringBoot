@@ -24,3 +24,9 @@ fanli:
     secret: f4e2e52034348f86b67cde581c0f9eb5
     expire: 172800
     header: token
+
+mybatis-plus:
+  # mybatis plus的xml文件需要放在resource文件夹中
+  mapper-locations: classpath*:/mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

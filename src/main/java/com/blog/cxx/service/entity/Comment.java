@@ -9,8 +9,10 @@ import java.io.Serializable;
 import java.util.Date;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -20,8 +22,8 @@ import lombok.Setter;
  * @author Cxx
  * @since 2022-01-26
  */
-@Getter
-@Setter
+@Data
+@Accessors(chain = true)
 @TableName("comment")
 @ApiModel(value = "Comment对象", description = "")
 public class Comment implements Serializable {

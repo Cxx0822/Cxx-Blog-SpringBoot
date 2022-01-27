@@ -7,6 +7,7 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.blog.cxx.service.result.R;
 import com.blog.cxx.service.result.ResultCodeEnum;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -65,5 +66,12 @@ public class GlobalExceptionHandler {
     public R error(AlgorithmMismatchException e){
         //e.printStackTrace();
         return R.setResult(ResultCodeEnum.AlgorithmMismatchException);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseBody
+    public R error(DataIntegrityViolationException e){
+        //e.printStackTrace();
+        return R.setResult(ResultCodeEnum.DataIntegrityViolationException);
     }
 }

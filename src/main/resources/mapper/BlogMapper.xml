@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.cxx.service.mapper.BlogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.blog.cxx.service.entity.Blog">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="description" property="description" />
+        <result column="content" property="content" />
+        <result column="views" property="views" />
+        <result column="words" property="words" />
+        <result column="type_id" property="typeId" />
+        <result column="user_id" property="userId" />
+        <result column="status" property="status" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <resultMap id="BlogResultMap" type="com.blog.cxx.service.entity.vo.BlogInfo">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="description" column="description"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="views" column="views"/>
+        <result property="words" column="words"/>
+        <result property="userId" column="user_id"/>
+        <result property="typeId" column="type_id"/>
+
+        <association property="type" javaType="com.blog.cxx.service.entity.Type">
+            <id property="id" column="id"/>
+            <result property="typeName" column="type_name"/>
+        </association>
+    </resultMap>
+
+    <!-- 根据类别查询公开博客 -->
+    <select id="getBlogInfoByTypeName" resultMap="BlogResultMap">
+        select b.id, b.title,b.description, b.status, b.create_time,
+               b.update_time, b.user_id, b.words, b.views, b.type_id,
+               t.id, t.type_name
+        from blog as b left join type as t on b.type_id=t.id
+        where t.type_name = #{type Name} and b.status = 1
+        order by b.create_time DESC
+    </select>
+
+</mapper>

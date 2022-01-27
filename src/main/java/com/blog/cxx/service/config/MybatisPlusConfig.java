@@ -6,25 +6,17 @@ import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerIntercept
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@EnableTransactionManagement
+//@EnableTransactionManagement
 @Configuration
-@MapperScan("com.blog.cxx.service.mapper*")
+@MapperScan("com.blog.cxx.service.mapper")
 public class MybatisPlusConfig {
-    // 旧版
-//    @Bean
-//    public PaginationInterceptor paginationInterceptor() {
-//
-//        return new PaginationInterceptor();
-//    }
-
-    // 最新版
+    // 最新版 3.4及以上版本
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        // 需要注释掉 否则会出错
-//        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.H2));
+        // 更改为自己的数据库类型
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
         return interceptor;
     }
 

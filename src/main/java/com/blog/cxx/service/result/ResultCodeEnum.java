@@ -16,7 +16,8 @@ public enum ResultCodeEnum {
     SignatureVerificationException(false, 20001, "签名认证错误"),
     JWTDecodeException(false, 20001, "JWT解析错误"),
     UnknownAccountException(false, 20001, "账号不存在"),
-    IncorrectCredentialsException(false, 20001, "密码错误");
+    IncorrectCredentialsException(false, 20001, "密码错误"),
+    DataIntegrityViolationException(false, 20001, "数据库错误：某些字段不能为空");
 
     private Boolean success;
 
