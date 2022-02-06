@@ -1,11 +1,11 @@
-#server:
-#  port: 8080
+server:
+  port: 8081
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/cxx_blog?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
     username: root
-    password:
+    password: 123456
   redis:
       host: localhost
       timeout: 5000
@@ -28,5 +28,5 @@ fanli:
 mybatis-plus:
   # mybatis plus的xml文件需要放在resource文件夹中
   mapper-locations: classpath*:/mapper/*.xml
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

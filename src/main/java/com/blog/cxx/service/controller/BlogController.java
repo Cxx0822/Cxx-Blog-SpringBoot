@@ -2,6 +2,7 @@ package com.blog.cxx.service.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blog.cxx.service.entity.Blog;
 import com.blog.cxx.service.entity.vo.BlogInfo;
@@ -38,18 +39,18 @@ public class BlogController {
      * */
     @ApiOperation("查询公开博客信息")
     @GetMapping("/getPublicBlogs")
-    public R getPublicBlogs(@RequestParam(defaultValue = "1") Integer currentPage) {
+    public R getPublicBlogs(@RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "1")  Integer currentPage) {
         // 参数一是当前页，参数二是每页个数
-        Page<Blog> blogPage = new Page<>(currentPage, 2);
+        IPage<Blog> blogIPage = new Page<>(currentPage, pageSize);
 
         // 查询条件
         blogQueryWrapper.clear();
         blogQueryWrapper.eq("status", 1).orderByDesc("create_time");
 
         // 第一个参数为分页参数，第二个参数为查询条件参数
-        blogPage = blogMapper.selectPage(blogPage, blogQueryWrapper);
+        blogIPage = blogMapper.selectPage(blogIPage, blogQueryWrapper);
 
-        return R.ok().data("blogPage", blogPage);
+        return R.ok().data("blogPage", blogIPage);
     }
 
     /*
@@ -75,7 +76,6 @@ public class BlogController {
     @ApiOperation("创建博客")
     @PostMapping("/create")
     public R create(@RequestBody Blog blog) {
-
         boolean result = blogService.save(blog);
         if (result) {
             return R.ok().message("创建成功");
@@ -84,6 +84,35 @@ public class BlogController {
         }
     }
 
+    /*
+     * 更新博客
+     * */
+    @ApiOperation("更新博客")
+    @PostMapping("/update")
+    public R update(@RequestBody Blog blog, @RequestParam Integer blogId) {
+        blogQueryWrapper.clear();
+        blogQueryWrapper.eq("id", blogId);
+        boolean result = blogService.update(blog, blogQueryWrapper);
+        if (result) {
+            return R.ok().message("更新成功");
+        } else {
+            return R.error().message("更新失败");
+        }
+    }
+
+    /*
+    * 查看某个公开博客详情
+    * */
+    @ApiOperation("查询某个公开博客")
+    @GetMapping("/getPublicBlog/{id}")
+    public R getBlogById(@PathVariable(name="id") Integer blogId){
+        Blog blog = blogService.getById(blogId);
+        if (blog.getStatus() != 1) {
+            return R.error().message("该博客未公开");
+        }else {
+            return R.ok().data("blog", blog);
+        }
+    }
     /*
      * 查询所有博客
      * */
@@ -100,7 +129,7 @@ public class BlogController {
     @ApiOperation("分页查询所有博客")
     @GetMapping("/listAllByPage")
     public R listAllByPage(@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam(defaultValue = "10") Integer pageSize){
-        Page<Blog> blogIPage = new Page<>(currentPage, pageSize);
+        IPage<Blog> blogIPage = new Page<>(currentPage, pageSize);
 
         // 查询条件
         blogQueryWrapper.clear();

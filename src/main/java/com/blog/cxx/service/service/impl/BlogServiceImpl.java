@@ -1,5 +1,6 @@
 package com.blog.cxx.service.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blog.cxx.service.entity.Blog;
 import com.blog.cxx.service.entity.vo.BlogInfo;
@@ -37,7 +38,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
 
         // 分类查询到的博客
         // 定义Page类
-        Page<BlogInfo> blogInfoPage = new Page<>();
+        IPage<BlogInfo> blogInfoPage = new Page<>();
 
         // 查询到的博客数
         int size = list.size();
