@@ -56,6 +56,5 @@ public class TypeController {
         } else {
             return R.error().message("增加失败，已经存在该分类");
         }
-
     }
 }

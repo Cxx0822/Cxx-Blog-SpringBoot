@@ -5,14 +5,21 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blog.cxx.service.entity.Blog;
+import com.blog.cxx.service.entity.Type;
 import com.blog.cxx.service.entity.vo.BlogInfo;
+import com.blog.cxx.service.entity.vo.BlogTypeInfo;
 import com.blog.cxx.service.mapper.BlogMapper;
+import com.blog.cxx.service.mapper.TypeMapper;
 import com.blog.cxx.service.result.R;
 import com.blog.cxx.service.service.BlogService;
+import com.blog.cxx.service.service.TypeService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -31,6 +38,12 @@ public class BlogController {
 
     @Autowired
     BlogMapper blogMapper;
+
+    @Autowired
+    TypeService typeService;
+
+    @Autowired
+    TypeMapper typeMapper;
 
     private final QueryWrapper<Blog> blogQueryWrapper = new QueryWrapper<>();
 
@@ -68,6 +81,33 @@ public class BlogController {
         } else {
             return R.ok().data("blogInfoList", blogInfoList);
         }
+    }
+
+    /*
+     * 查询博客类别及每类的个数
+     * */
+    @ApiOperation("查询博客类别及每类的个数")
+    @GetMapping("/getBlogTypeAndNumbers")
+    public R getBlogTypeAndNumbers() {
+        QueryWrapper<Blog> blogQueryWrapper = new QueryWrapper<>();
+
+        List<Type> typeList = typeService.list();
+        // 博客类别信息数组
+        ArrayList<BlogTypeInfo> blogTypeInfoArrayList = new ArrayList<>();
+
+        for (Type type: typeList) {
+            blogQueryWrapper.clear();
+            blogQueryWrapper.eq("type_id", type.getId());
+            Long selectCount = blogMapper.selectCount(blogQueryWrapper);
+
+            BlogTypeInfo blogTypeInfo = new BlogTypeInfo();
+            blogTypeInfo.setTypeName(type.getTypeName());
+            blogTypeInfo.setTypeNumber(selectCount);
+
+            blogTypeInfoArrayList.add(blogTypeInfo);
+        }
+
+        return R.ok().data("typeCountInfoList", blogTypeInfoArrayList);
     }
 
     /*

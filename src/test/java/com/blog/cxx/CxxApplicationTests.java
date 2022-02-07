@@ -4,15 +4,20 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blog.cxx.service.entity.Blog;
+import com.blog.cxx.service.entity.Type;
 import com.blog.cxx.service.entity.vo.BlogInfo;
 import com.blog.cxx.service.mapper.BlogMapper;
+import com.blog.cxx.service.mapper.TypeMapper;
 import com.blog.cxx.service.service.BlogService;
+import com.blog.cxx.service.service.TypeService;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @SpringBootTest
@@ -24,10 +29,29 @@ class CxxApplicationTests {
     @Autowired
     BlogMapper blogMapper;
 
+    @Autowired
+    TypeService typeService;
+
+    @Autowired
+    TypeMapper typeMapper;
+
     @Test
     void contextLoads() {
-        Page<Blog> blogPage = blogMapper.selectPage(new Page<>(1, 2), null);
-        blogPage.getRecords().forEach(System.out::println);
+        QueryWrapper<Blog> blogQueryWrapper = new QueryWrapper<>();
+
+        HashMap< String, Long> typeCountInfo = new HashMap< String, Long>();
+
+
+        List<Type> typeList = typeService.list();
+
+        for (Type type: typeList) {
+            blogQueryWrapper.clear();
+            blogQueryWrapper.eq("type_id", type.getId());
+            Long selectCount = blogMapper.selectCount(blogQueryWrapper);
+            typeCountInfo.put(type.getTypeName(), selectCount);
+        }
+
+        System.out.println(typeCountInfo);
     }
 
 }
