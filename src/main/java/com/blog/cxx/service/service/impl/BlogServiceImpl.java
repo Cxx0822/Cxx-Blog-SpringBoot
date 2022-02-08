@@ -28,12 +28,12 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
 
 
     @Override
-    public List<BlogInfo> getBlogInfoByTypeName(Integer currentPage, Integer pageSize, String typeName) {
+    public IPage<BlogInfo> getBlogInfoByTypeName(Integer currentPage, Integer pageSize, String typeName) {
         // 根据类别查询出所有博客
         List<BlogInfo> list = blogMapper.getBlogInfoByTypeName(typeName);
 
         if (list.size() == 0) {
-            return list;
+            return null;
         }
 
         // 分类查询到的博客
@@ -60,6 +60,6 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
 
         blogInfoPage.setCurrent(currentPage).setSize(pageSize).setTotal(list.size()).setRecords(pageList);
 
-        return blogInfoPage.getRecords();
+        return blogInfoPage;
     }
 }
