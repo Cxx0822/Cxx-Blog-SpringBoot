@@ -38,20 +38,8 @@ class CxxApplicationTests {
     @Test
     void contextLoads() {
         QueryWrapper<Blog> blogQueryWrapper = new QueryWrapper<>();
-
-        HashMap< String, Long> typeCountInfo = new HashMap< String, Long>();
-
-
-        List<Type> typeList = typeService.list();
-
-        for (Type type: typeList) {
-            blogQueryWrapper.clear();
-            blogQueryWrapper.eq("type_id", type.getId());
-            Long selectCount = blogMapper.selectCount(blogQueryWrapper);
-            typeCountInfo.put(type.getTypeName(), selectCount);
-        }
-
-        System.out.println(typeCountInfo);
+        BlogInfo blogInfo = blogMapper.getBlogInfoById(1);
+        System.out.println((blogInfo));
     }
 
 }

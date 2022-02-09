@@ -12,6 +12,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 
+// 返回给前端的数据
 public class BlogInfo implements Serializable {
     private Long id;
 
@@ -21,19 +22,17 @@ public class BlogInfo implements Serializable {
 
     private String content;
 
-    private Date createTime;
-
-    private Date updateTime;
-
     private Integer views;
 
     private Integer words;
 
-    private Long typeId;
+    private String username;
 
-    private Long userId;
+    private String typeName;
 
     private Integer status;
 
-    private Type type;
+    private Date createTime;
+
+    private Date updateTime;
 }

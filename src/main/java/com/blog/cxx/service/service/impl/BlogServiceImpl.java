@@ -26,40 +26,31 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
     @Autowired
     BlogMapper blogMapper;
 
-
+    /*
+    * 根据用户名获取博客信息
+    * */
     @Override
-    public IPage<BlogInfo> getBlogInfoByTypeName(Integer currentPage, Integer pageSize, String typeName) {
-        // 根据类别查询出所有博客
-        List<BlogInfo> list = blogMapper.getBlogInfoByTypeName(typeName);
-
-        if (list.size() == 0) {
-            return null;
+    public IPage<BlogInfo> getBlogByUsername(IPage<BlogInfo> page, String username, Boolean isPublic) {
+        IPage<BlogInfo> blogInfoIPage;
+        if (isPublic) {
+            blogInfoIPage = blogMapper.getPublicBlogInfoByUsername(page, username);
+        } else {
+            blogInfoIPage = blogMapper.getAllBlogInfoByUsername(page, username);
         }
+        return blogInfoIPage;
+    }
 
-        // 分类查询到的博客
-        // 定义Page类
-        IPage<BlogInfo> blogInfoPage = new Page<>();
-
-        // 查询到的博客数
-        int size = list.size();
-
-        // 求出最大页数，防止currentPage越界
-        pageSize = Math.min(pageSize, size);
-        int maxPage = size % pageSize == 0 ? size / pageSize : size / pageSize + 1;
-
-        currentPage = Math.min(currentPage, maxPage);
-
-        // 当前页第一条数据的下标
-        int curIdx = currentPage > 1 ? (currentPage - 1) * pageSize : 0;
-
-        List<BlogInfo> pageList = new ArrayList<>();
-        // 将当前页的数据放进pageList
-        for (int i = 0; i < pageSize && curIdx + i < size; i++) {
-            pageList.add(list.get(curIdx + i));
+    /*
+     * 根据用户名和类别获取博客信息
+     * */
+    @Override
+    public IPage<BlogInfo> getBlogByUsernameAndTypeName(IPage<BlogInfo> page, String username, String typeName, Boolean isPublic) {
+        IPage<BlogInfo> blogInfoIPage;
+        if (isPublic) {
+            blogInfoIPage = blogMapper.getPublicBlogInfoByUsernameAndTypeName(page, username, typeName);
+        } else {
+            blogInfoIPage = blogMapper.getAllBlogInfoByUsernameAndTypeName(page, username, typeName);
         }
-
-        blogInfoPage.setCurrent(currentPage).setSize(pageSize).setTotal(list.size()).setRecords(pageList);
-
-        return blogInfoPage;
+        return blogInfoIPage;
     }
 }

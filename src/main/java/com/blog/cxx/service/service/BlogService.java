@@ -17,7 +17,12 @@ import java.util.List;
  */
 public interface BlogService extends IService<Blog> {
     /*
-    * 通过分类类别查询公开的博客信息
+    * 根据用户名查询博客
     * */
-    IPage<BlogInfo> getBlogInfoByTypeName(Integer currentPage, Integer pageSize, String typeName);
+    IPage<BlogInfo> getBlogByUsername(IPage<BlogInfo> page, String username, Boolean isPublic);
+
+    /*
+     * 根据用户名和类别查询博客
+     * */
+    IPage<BlogInfo> getBlogByUsernameAndTypeName(IPage<BlogInfo> page, String username, String typeName, Boolean isPublic);
 }
