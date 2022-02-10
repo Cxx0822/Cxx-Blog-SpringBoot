@@ -7,6 +7,7 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.blog.cxx.service.result.R;
 import com.blog.cxx.service.result.ResultCodeEnum;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -73,5 +74,12 @@ public class GlobalExceptionHandler {
     public R error(DataIntegrityViolationException e){
         //e.printStackTrace();
         return R.setResult(ResultCodeEnum.DataIntegrityViolationException);
+    }
+
+    @ExceptionHandler(UnknownAccountException.class)
+    @ResponseBody
+    public R error(UnknownAccountException e){
+        //e.printStackTrace();
+        return R.setResult(ResultCodeEnum.UnknownAccountException);
     }
 }

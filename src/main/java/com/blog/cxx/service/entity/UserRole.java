@@ -34,7 +34,7 @@ public class UserRole implements Serializable {
     private Integer id;
 
     @TableField("user_id")
-    private Integer userId;
+    private Long userId;
 
     @TableField("role_id")
     private Integer roleId;
