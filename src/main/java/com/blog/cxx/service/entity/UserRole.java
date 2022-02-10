@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Date;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -20,52 +19,29 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author Cxx
- * @since 2022-01-26
+ * @since 2022-02-10
  */
-@Data
+@Getter
+@Setter
 @Accessors(chain = true)
-@TableName("user")
-@ApiModel(value = "User对象", description = "")
-public class User implements Serializable {
+@TableName("user_role")
+@ApiModel(value = "UserRole对象", description = "")
+public class UserRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
-    @ApiModelProperty("用户名")
-    @TableField("username")
-    private String username;
+    @TableField("user_id")
+    private Integer userId;
 
-    @ApiModelProperty("密码")
-    @TableField("password")
-    private String password;
+    @TableField("role_id")
+    private Integer roleId;
 
-    @ApiModelProperty("盐值")
-    @TableField("salt")
-    private String salt;
-
-    @ApiModelProperty("昵称")
-    @TableField("nickname")
-    private String nickname;
-
-    @ApiModelProperty("头像")
-    @TableField("avatar")
-    private String avatar;
-
-    @ApiModelProperty("邮箱")
-    @TableField("email")
-    private String email;
-
-    @ApiModelProperty("状态")
-    @TableField("status")
-    private Integer status;
-
-    @ApiModelProperty("创建时间")
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
 
-    @ApiModelProperty("更新时间")
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 

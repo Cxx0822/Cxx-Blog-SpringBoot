@@ -27,18 +27,10 @@ import java.util.List;
 @Service
 public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements TypeService {
     @Autowired
-    private TypeService typeService;
-
-    @Autowired
     private TypeMapper typeMapper;
 
     @Autowired
-    private BlogMapper blogMapper;
-
-    @Autowired
     private BlogTypeMapper blogTypeMapper;
-
-    private final QueryWrapper<Blog> blogQueryWrapper = new QueryWrapper<>();
 
     @Override
     public List<Type> query(String columnName, String columnValue) {
@@ -51,7 +43,8 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements Ty
     @Override
     public ArrayList<BlogTypeInfo> getBlogTypeAndNumbers() {
         // 获取所有的类别信息
-        List<Type> typeList = typeService.list();
+        QueryWrapper<Type> typeQueryWrapper = new QueryWrapper<>();
+        List<Type> typeList = typeMapper.selectList(typeQueryWrapper);
         // 博客类别信息数组
         ArrayList<BlogTypeInfo> blogTypeInfoArrayList = new ArrayList<>();
 
