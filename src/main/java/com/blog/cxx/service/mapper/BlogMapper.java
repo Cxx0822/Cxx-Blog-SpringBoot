@@ -21,11 +21,6 @@ import java.util.List;
 @Repository
 public interface BlogMapper extends BaseMapper<Blog> {
     /*
-    * 根据分类类别查询博客
-    * */
-    List<BlogInfo> getBlogInfoByTypeName(String typeName);
-
-    /*
      * 根据用户查询所有博客
      * 加上分页参数，需要放在第一个参数位置，下同
      * */

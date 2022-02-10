@@ -5,12 +5,15 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blog.cxx.service.entity.Blog;
+import com.blog.cxx.service.entity.Type;
+import com.blog.cxx.service.entity.User;
 import com.blog.cxx.service.entity.vo.BlogInfo;
 import com.blog.cxx.service.mapper.BlogMapper;
 import com.blog.cxx.service.mapper.TypeMapper;
 import com.blog.cxx.service.result.R;
 import com.blog.cxx.service.service.BlogService;
 import com.blog.cxx.service.service.TypeService;
+import com.blog.cxx.service.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +42,9 @@ public class BlogController {
 
     @Autowired
     TypeMapper typeMapper;
+
+    @Autowired
+    UserService userService;
 
     private final QueryWrapper<Blog> blogQueryWrapper = new QueryWrapper<>();
 
@@ -148,34 +154,70 @@ public class BlogController {
     }
 
     /*
-     * 根据id删除博客
-     * */
-    @ApiOperation("根据id删除博客")
-    @DeleteMapping("/deleteById")
-    public R deleteById(@RequestParam Integer blogId) {
-        blogQueryWrapper.clear();
-        blogQueryWrapper.eq("id", blogId);
-        int delete = blogMapper.delete(blogQueryWrapper);
-        if (delete != 0) {
-            return R.ok().message("删除成功");
-        } else {
-            return R.error().message("删除失败");
-        }
-    }
-
-    /*
      * 根据名称删除博客
      * */
     @ApiOperation("根据名称删除博客")
     @DeleteMapping("/deleteByName")
-    public R deleteByName(@RequestParam String title) {
-        blogQueryWrapper.clear();
-        blogQueryWrapper.eq("title", title);
-        int delete = blogMapper.delete(blogQueryWrapper);
-        if (delete != 0) {
-            return R.ok().message("删除成功");
+    public R deleteByName(@RequestParam String blogName) {
+        List<Blog> blogList = blogService.query("title", blogName);
+
+        if (blogList.size() == 0) {
+            return R.error().message("博客不存在");
         } else {
-            return R.error().message("删除失败");
+            // 删除用户和角色
+            Boolean result = blogService.deleteByName(blogName);
+
+            if (result) {
+                return R.ok().message("删除成功");
+            } else {
+                return R.error().message("删除失败");
+            }
+        }
+    }
+
+    @ApiOperation("设置博客类别信息")
+    @PostMapping("/setBlogType")
+    public R setBlogType(@RequestParam String blogName, @RequestParam String typeName){
+        List<Blog> blogList = blogService.query("title", blogName);
+        if (blogList.size() == 0) {
+            return R.error().message("博客不存在");
+        }
+
+        List<Type> typeList = typeService.query("type_name", typeName);
+        if(typeList.size() == 0) {
+            return R.error().message("类别不存在");
+        }
+
+        // 分配用户角色
+        Boolean result = blogService.setBlogType(blogList.get(0), typeList.get(0));
+
+        if (result) {
+            return R.ok().message("分配博客类别成功");
+        } else {
+            return R.error().message("分配博客类别失败");
+        }
+    }
+
+    @ApiOperation("设置博客作者信息")
+    @PostMapping("/setBlogUser")
+    public R setBlogUser(@RequestParam String blogName, @RequestParam String username){
+        List<Blog> blogList = blogService.query("title", blogName);
+        if (blogList.size() == 0) {
+            return R.error().message("博客不存在");
+        }
+
+        List<User> userList = userService.query("username", username);
+        if(userList.size() == 0) {
+            return R.error().message("用户不存在");
+        }
+
+        // 分配用户角色
+        Boolean result = blogService.setBlogUser(blogList.get(0), userList.get(0));
+
+        if (result) {
+            return R.ok().message("分配博客类别成功");
+        } else {
+            return R.error().message("分配博客类别失败");
         }
     }
 }

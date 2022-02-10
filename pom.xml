@@ -83,11 +83,11 @@
             <version>${mybatis-plus.version}</version>
         </dependency>
         <!-- 代码生成器 -->
-<!--        <dependency>-->
-<!--            <groupId>com.baomidou</groupId>-->
-<!--            <artifactId>mybatis-plus-generator</artifactId>-->
-<!--            <version>${mybatis-plus-generator.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>${mybatis-plus-generator.version}</version>
+        </dependency>
 
         <!-- velocity 模板引擎, Mybatis Plus 代码生成器需要 -->
         <dependency>

@@ -56,6 +56,7 @@ public class TypeController {
     @ApiOperation("查询博客类别及每类的个数")
     @GetMapping("/getBlogTypeAndNumbers")
     public R getBlogTypeAndNumbers() {
+        // TODO:根据用户名区分！
         ArrayList<BlogTypeInfo> blogTypeInfoArrayList = typeService.getBlogTypeAndNumbers();
 
         return R.ok().data("typeCountInfoList", blogTypeInfoArrayList);

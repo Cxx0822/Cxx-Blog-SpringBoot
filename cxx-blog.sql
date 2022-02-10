@@ -48,6 +48,58 @@ LOCK TABLES `blog` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `blog_type`
+--
+
+DROP TABLE IF EXISTS `blog_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `blog_type` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `blog_id` bigint DEFAULT NULL,
+  `type_id` int DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `blog_type`
+--
+
+LOCK TABLES `blog_type` WRITE;
+/*!40000 ALTER TABLE `blog_type` DISABLE KEYS */;
+/*!40000 ALTER TABLE `blog_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `blog_user`
+--
+
+DROP TABLE IF EXISTS `blog_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `blog_user` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `blog_id` bigint DEFAULT NULL,
+  `user_id` bigint DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `blog_user`
+--
+
+LOCK TABLES `blog_user` WRITE;
+/*!40000 ALTER TABLE `blog_user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `blog_user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `comment`
 --
 
@@ -216,4 +268,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-26 10:57:42
+-- Dump completed on 2022-02-10  9:59:16

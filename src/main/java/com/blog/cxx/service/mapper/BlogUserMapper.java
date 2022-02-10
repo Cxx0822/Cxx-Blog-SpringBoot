@@ -1,6 +1,6 @@
 package com.blog.cxx.service.mapper;
 
-import com.blog.cxx.service.entity.User;
+import com.blog.cxx.service.entity.BlogUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Repository;
  * </p>
  *
  * @author Cxx
- * @since 2022-01-26
+ * @since 2022-02-09
  */
 @Mapper
 @Repository
-public interface UserMapper extends BaseMapper<User> {
+public interface BlogUserMapper extends BaseMapper<BlogUser> {
 
 }

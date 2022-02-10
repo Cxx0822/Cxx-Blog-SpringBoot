@@ -2,9 +2,11 @@ package com.blog.cxx.service.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.blog.cxx.service.entity.Blog;
+import com.blog.cxx.service.entity.BlogType;
 import com.blog.cxx.service.entity.Type;
 import com.blog.cxx.service.entity.vo.BlogTypeInfo;
 import com.blog.cxx.service.mapper.BlogMapper;
+import com.blog.cxx.service.mapper.BlogTypeMapper;
 import com.blog.cxx.service.mapper.TypeMapper;
 import com.blog.cxx.service.service.TypeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -28,9 +30,23 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements Ty
     private TypeService typeService;
 
     @Autowired
+    private TypeMapper typeMapper;
+
+    @Autowired
     private BlogMapper blogMapper;
 
+    @Autowired
+    private BlogTypeMapper blogTypeMapper;
+
     private final QueryWrapper<Blog> blogQueryWrapper = new QueryWrapper<>();
+
+    @Override
+    public List<Type> query(String columnName, String columnValue) {
+        QueryWrapper<Type> typeQueryWrapper = new QueryWrapper<>();
+        typeQueryWrapper.eq(columnName, columnValue);
+
+        return typeMapper.selectList(typeQueryWrapper);
+    }
 
     @Override
     public ArrayList<BlogTypeInfo> getBlogTypeAndNumbers() {
@@ -39,11 +55,13 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements Ty
         // 博客类别信息数组
         ArrayList<BlogTypeInfo> blogTypeInfoArrayList = new ArrayList<>();
 
+        QueryWrapper<BlogType> blogTypeQueryWrapper = new QueryWrapper<>();
+
         for (Type type: typeList) {
-            blogQueryWrapper.clear();
-            blogQueryWrapper.eq("type_id", type.getId());
+            blogTypeQueryWrapper.clear();
+            blogTypeQueryWrapper.eq("type_id", type.getId());
             // 查询该类别的个数
-            Long selectCount = blogMapper.selectCount(blogQueryWrapper);
+            Long selectCount = blogTypeMapper.selectCount(blogTypeQueryWrapper);
 
             BlogTypeInfo blogTypeInfo = new BlogTypeInfo();
             blogTypeInfo.setTypeName(type.getTypeName());
