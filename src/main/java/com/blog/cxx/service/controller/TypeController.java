@@ -1,8 +1,8 @@
 package com.blog.cxx.service.controller;
 
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.blog.cxx.service.entity.Blog;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blog.cxx.service.entity.Type;
 import com.blog.cxx.service.entity.vo.BlogTypeInfo;
 import com.blog.cxx.service.mapper.BlogMapper;
@@ -48,6 +48,18 @@ public class TypeController {
     public R listAll(){
         List<Type> typeList = typeService.list();
         return R.ok().data("typeList", typeList);
+    }
+
+    @ApiOperation("分页查询所有类别")
+    @GetMapping("/getAllTypeInfo")
+    public R getAllTypeInfo(@RequestParam(defaultValue = "1") Integer currentPage,
+                            @RequestParam(defaultValue = "10") Integer pageSize){
+        Page<Type> typePage = new Page<>(currentPage, pageSize);
+        QueryWrapper<Type> typeQueryWrapper = new QueryWrapper<>();
+
+        IPage<Type> typeIPage = typeMapper.selectPage(typePage, typeQueryWrapper);
+
+        return R.ok().data("typeIPage", typeIPage);
     }
 
     /*

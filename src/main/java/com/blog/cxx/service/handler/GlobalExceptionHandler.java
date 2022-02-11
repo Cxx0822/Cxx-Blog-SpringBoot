@@ -7,6 +7,7 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.blog.cxx.service.result.R;
 import com.blog.cxx.service.result.ResultCodeEnum;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -69,17 +70,17 @@ public class GlobalExceptionHandler {
         return R.setResult(ResultCodeEnum.AlgorithmMismatchException);
     }
 
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    @ResponseBody
-    public R error(DataIntegrityViolationException e){
-        //e.printStackTrace();
-        return R.setResult(ResultCodeEnum.DataIntegrityViolationException);
-    }
-
     @ExceptionHandler(UnknownAccountException.class)
     @ResponseBody
     public R error(UnknownAccountException e){
         //e.printStackTrace();
         return R.setResult(ResultCodeEnum.UnknownAccountException);
+    }
+
+    @ExceptionHandler(IncorrectCredentialsException.class)
+    @ResponseBody
+    public R error(IncorrectCredentialsException e){
+        //e.printStackTrace();
+        return R.setResult(ResultCodeEnum.IncorrectCredentialsException);
     }
 }
