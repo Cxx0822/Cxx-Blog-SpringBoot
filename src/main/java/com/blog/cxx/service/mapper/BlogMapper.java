@@ -7,8 +7,6 @@ import com.blog.cxx.service.entity.vo.BlogInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 /**
  * <p>
  *  Mapper 接口

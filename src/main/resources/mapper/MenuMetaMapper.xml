@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.cxx.service.mapper.MenuMetaMapper">
+
+    <resultMap id="MenuMetaInfoResultMap" type="com.blog.cxx.service.entity.vo.MenuMetaInfo">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="icon" property="icon" />
+        <result column="no_cache" property="noCache" />
+        <result column="affix" property="affix" />
+        <result column="breadcrumb" property="breadcrumb" />
+        <result column="active_menu" property="activeMenu" />
+
+        <!-- 路由角色权限 -->
+        <association
+                property="roles"
+                column="menu_id"
+                javaType="List"
+                select="com.blog.cxx.service.mapper.RoleMapper.selectRolesByMenuId"/>
+    </resultMap>
+
+    <!-- 根据menu id获取meta信息 -->
+    <select id="selectMetaByMenuId" resultMap="MenuMetaInfoResultMap">
+        select *
+        from menu_meta
+        where menu_id=#{menuId}
+    </select>
+</mapper>

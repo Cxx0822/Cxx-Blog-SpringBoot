@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.cxx.service.mapper.ResourceMapper">
+
+    <resultMap id="ResourceResultMap" type="com.blog.cxx.service.entity.Resource">
+        <id column="id" property="id" />
+        <result column="resource_name" property="resourceName" />
+        <result column="resource_description" property="resourceDescription" />
+    </resultMap>
+
+    <resultMap id="ResourceInfoResultMap" type="com.blog.cxx.service.entity.vo.ResourceInfo">
+        <id column="id" property="id" />
+        <result column="resource_name" property="resourceName" />
+        <result column="resource_description" property="resourceDescription" />
+
+        <association
+                property="permissionList"
+                column="id"
+                javaType="List"
+                select="com.blog.cxx.service.mapper.PermissionMapper.selectPermissionByResourceId"/>
+    </resultMap>
+
+    <!-- 根据资源ID获取资源信息 -->
+    <select id="selectResourceByResourceId" resultMap="ResourceResultMap">
+        select *
+        from resource
+        where id=#{resourceId}
+    </select>
+
+    <!-- 查询所有资源 -->
+    <select id="getAllResources" resultMap="ResourceResultMap">
+        select *
+        from resource
+    </select>
+
+</mapper>

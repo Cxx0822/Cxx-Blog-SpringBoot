@@ -1,11 +1,9 @@
 package com.blog.cxx.service.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.blog.cxx.service.entity.Blog;
 import com.blog.cxx.service.entity.BlogType;
 import com.blog.cxx.service.entity.Type;
 import com.blog.cxx.service.entity.vo.BlogTypeInfo;
-import com.blog.cxx.service.mapper.BlogMapper;
 import com.blog.cxx.service.mapper.BlogTypeMapper;
 import com.blog.cxx.service.mapper.TypeMapper;
 import com.blog.cxx.service.service.TypeService;

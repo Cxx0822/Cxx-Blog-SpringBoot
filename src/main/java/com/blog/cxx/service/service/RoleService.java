@@ -20,4 +20,10 @@ public interface RoleService extends IService<Role> {
     Boolean delete(String columnName, String columnValue);
 
     Integer update(Role role);
+
+    // 分配角色权限
+    Boolean assignRoleMenu(Integer roleId, List<Integer> menuList);
+
+    // 分配角色资源
+    Boolean assignRolePermission(Integer roleId, List<Integer> permissionList);
 }

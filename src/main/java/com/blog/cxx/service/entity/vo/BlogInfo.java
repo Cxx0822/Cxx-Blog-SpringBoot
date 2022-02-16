@@ -1,6 +1,5 @@
 package com.blog.cxx.service.entity.vo;
 
-import com.blog.cxx.service.entity.Type;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;

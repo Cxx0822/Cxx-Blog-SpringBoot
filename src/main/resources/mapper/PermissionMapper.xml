@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.cxx.service.mapper.PermissionMapper">
+
+    <resultMap id="PermissionInfoResultMap" type="com.blog.cxx.service.entity.vo.PermissionInfo">
+        <id column="id" property="id" />
+        <result column="permission_name" property="permissionName" />
+        <result column="permission_description" property="permissionDescription" />
+        <result column="resource_id" property="resourceId" />
+        <result column="operation_id" property="operationId" />
+
+        <association
+                property="operation"
+                column="operation_id"
+                javaType="com.blog.cxx.service.entity.Operation"
+                select="com.blog.cxx.service.mapper.OperationMapper.selectOperationByOperationID"/>
+
+        <association
+                property="resource"
+                column="resource_id"
+                javaType="com.blog.cxx.service.entity.Resource"
+                select="com.blog.cxx.service.mapper.ResourceMapper.selectResourceByResourceId"/>
+    </resultMap>
+
+    <!-- 根据角色id查询权限信息 -->
+    <select id="selectPermissionByRoleId" resultMap="PermissionInfoResultMap">
+        select pm.*
+        from permission pm, role_permission rp
+        where rp.role_id=#{roleId} and pm.id=rp.permission_id
+    </select>
+
+    <!-- 根据资源id查询权限信息 -->
+    <select id="selectPermissionByResourceId" resultMap="PermissionInfoResultMap">
+        select *
+        from permission
+        where resource_id=#{resourceId}
+    </select>
+
+</mapper>

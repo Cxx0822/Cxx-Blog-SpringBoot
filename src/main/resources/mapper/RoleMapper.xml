@@ -2,18 +2,57 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.blog.cxx.service.mapper.RoleMapper">
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.blog.cxx.service.entity.Role">
+    <resultMap id="RoleResultMap" type="com.blog.cxx.service.entity.Role">
         <id column="id" property="id" />
         <result column="role_name" property="roleName" />
         <result column="role_description" property="roleDescription" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, role_name, role_description, create_time, update_time
-    </sql>
+    <resultMap id="RoleInfoResultMap" type="com.blog.cxx.service.entity.vo.RoleInfo">
+        <id column="id" property="id" />
+        <result column="role_name" property="roleName" />
+        <result column="role_description" property="roleDescription" />
+
+        <!-- 角色的menu信息 -->
+        <association
+                property="routes"
+                column="id"
+                javaType="List"
+                select="com.blog.cxx.service.mapper.MenuMapper.selectMenuByRoleId"/>
+
+        <!-- 角色的权限信息 -->
+        <association
+                property="permissionList"
+                column="id"
+                javaType="List"
+                select="com.blog.cxx.service.mapper.PermissionMapper.selectPermissionByRoleId"/>
+    </resultMap>
+
+    <!-- 获取所有角色信息 -->
+    <select id="getAllRoles" resultMap="RoleInfoResultMap">
+        select * from role
+    </select>
+
+    <!-- 根据用户ID查询角色信息 -->
+    <select id="selectRolesByUserId" resultMap="RoleResultMap">
+        select *
+        from role rl, user_role ur
+        where ur.id=#{id} and ur.role_id=rl.id
+    </select>
+
+    <!-- 选择menu_role表中所有menu_id为meta_id的role_name值 -->
+    <!-- 即可以选择某个menu的角色权限 -->
+    <select id="selectRolesByMenuId" resultType="String">
+        select rl.role_name
+        from role rl, role_menu rm
+        where rm.menu_id=#{metaId} and rm.role_id=rl.id
+    </select>
+
+    <!-- 根据permission获取能访问的角色信息 -->
+    <select id="getRoleNameByPermissionName" resultType="String">
+        select rl.role_name
+        from role rl, role_permission rp, permission pm
+        where pm.permission_name=#{permissionName} and pm.id=rp.permission_id and rp.role_id=rl.id
+    </select>
 
 </mapper>

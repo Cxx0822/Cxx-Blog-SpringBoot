@@ -1,12 +1,9 @@
 package com.blog.cxx.service.mapper;
 
-import com.blog.cxx.service.entity.User;
+import com.blog.cxx.service.entity.Operation;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.blog.cxx.service.entity.vo.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * <p>
@@ -14,10 +11,13 @@ import java.util.List;
  * </p>
  *
  * @author Cxx
- * @since 2022-01-26
+ * @since 2022-02-16
  */
 @Mapper
 @Repository
-public interface UserMapper extends BaseMapper<User> {
-    List<UserInfo> getAllUsers();
+public interface OperationMapper extends BaseMapper<Operation> {
+    /*
+    * 根据操作ID获取操作信息
+    * */
+    Operation selectOperationByOperationID(Integer operationID);
 }
