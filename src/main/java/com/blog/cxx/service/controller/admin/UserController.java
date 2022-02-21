@@ -160,7 +160,7 @@ public class UserController {
     }
 
     @ApiOperation("获取用户角色信息")
-    @GetMapping("/getRoleInfo")
+    @GetMapping("/roleInfo")
     // 这里需要token参数，此时前端还不知道用户的信息，只有token信息
     public R getRoleInfo(@RequestHeader("X-Token") String token) {
         // 根据token信息获取username
@@ -175,7 +175,7 @@ public class UserController {
     }
 
     @ApiOperation("获取所有用户角色信息")
-    @RequestMapping(value = "getAllRoleInfo", method = RequestMethod.GET)
+    @RequestMapping(value = "allRoleInfo", method = RequestMethod.GET)
     public R getAllRoleInfo() {
         List<UserInfo> allUsers = userMapper.getAllUsers();
         return R.ok().data("data", allUsers);
