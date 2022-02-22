@@ -29,8 +29,6 @@ CREATE TABLE `blog` (
   `content` longtext NOT NULL COMMENT '文章正文',
   `views` int NOT NULL COMMENT '文章浏览次数',
   `words` int NOT NULL COMMENT '文章字数',
-  `type_id` bigint NOT NULL COMMENT '文章类别',
-  `user_id` bigint DEFAULT NULL COMMENT '文章作者id',
   `status` tinyint DEFAULT NULL COMMENT '文章状态（是否公开）',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '更新时间',
@@ -195,7 +193,7 @@ CREATE TABLE `menu_meta` (
 
 LOCK TABLES `menu_meta` WRITE;
 /*!40000 ALTER TABLE `menu_meta` DISABLE KEYS */;
-INSERT INTO `menu_meta` VALUES (1,1,'管理系统权限','fa-solid fa-lock',0,0,0,NULL,'2022-02-21 15:57:49','2022-02-21 15:57:49'),(2,2,'维护用户',NULL,0,0,0,NULL,'2022-02-21 15:58:01','2022-02-21 15:58:01'),(3,3,'维护角色',NULL,0,0,0,NULL,'2022-02-21 15:58:07','2022-02-21 15:58:07');
+INSERT INTO `menu_meta` VALUES (1,1,'管理系统权限','lock',0,0,0,NULL,'2022-02-21 15:57:49','2022-02-21 15:57:49'),(2,2,'维护用户','userManage',0,0,0,NULL,'2022-02-21 15:58:01','2022-02-21 15:58:01'),(3,3,'维护角色','roleManage',0,0,0,NULL,'2022-02-21 15:58:07','2022-02-21 15:58:07');
 /*!40000 ALTER TABLE `menu_meta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -376,7 +374,7 @@ CREATE TABLE `type` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -385,7 +383,7 @@ CREATE TABLE `type` (
 
 LOCK TABLES `type` WRITE;
 /*!40000 ALTER TABLE `type` DISABLE KEYS */;
-INSERT INTO `type` VALUES (1,'C++','2022-02-11 16:32:06','2022-02-11 16:32:06'),(2,'Java','2022-02-11 16:32:13','2022-02-11 16:32:13'),(3,'Vue','2022-02-11 16:32:22','2022-02-11 16:32:22');
+INSERT INTO `type` VALUES (1,'C++学习','2022-02-11 16:32:06','2022-02-11 16:32:06'),(2,'Linux系统','2022-02-11 16:32:13','2022-02-11 16:32:13'),(3,'MATLAB','2022-02-11 16:32:22','2022-02-11 16:32:22'),(4,'NAO开发与应用','2022-02-22 16:36:16','2022-02-22 16:36:16'),(5,'NAO高尔夫比赛','2022-02-22 16:36:27','2022-02-22 16:36:27'),(6,'Python','2022-02-22 16:37:59','2022-02-22 16:37:59'),(7,'ROS开发与应用','2022-02-22 16:38:57','2022-02-22 16:38:57'),(8,'Web前端开发与应用','2022-02-22 16:39:09','2022-02-22 16:39:09'),(9,'Web开发与应用','2022-02-22 16:39:20','2022-02-22 16:39:20'),(10,'医疗服务机器人','2022-02-22 16:39:30','2022-02-22 16:39:30'),(11,'工业机器人视觉','2022-02-22 16:39:44','2022-02-22 16:39:44'),(12,'机器学习','2022-02-22 16:39:54','2022-02-22 16:39:54'),(13,'杂项','2022-02-22 16:40:00','2022-02-22 16:40:00'),(14,'毕业论文','2022-02-22 16:40:05','2022-02-22 16:40:05'),(15,'深度学习','2022-02-22 16:40:09','2022-02-22 16:40:09'),(16,'SLAM建图算法','2022-02-22 16:41:14','2022-02-22 16:41:14'),(17,'Unity开发与应用','2022-02-22 16:41:24','2022-02-22 16:41:24');
 /*!40000 ALTER TABLE `type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -525,4 +523,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-21 16:08:51
+-- Dump completed on 2022-02-22 17:16:46

@@ -67,5 +67,4 @@ public class Blog implements Serializable {
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 
-
 }

@@ -55,8 +55,7 @@ public class TypeController {
     public R getAllTypeInfo(@RequestParam(defaultValue = "1") Integer currentPage,
                             @RequestParam(defaultValue = "10") Integer pageSize){
         Page<Type> typePage = new Page<>(currentPage, pageSize);
-        QueryWrapper<Type> typeQueryWrapper = new QueryWrapper<>();
-
+        typeQueryWrapper.orderByAsc("type_name");
         IPage<Type> typeIPage = typeMapper.selectPage(typePage, typeQueryWrapper);
 
         return R.ok().data("typeIPage", typeIPage);
