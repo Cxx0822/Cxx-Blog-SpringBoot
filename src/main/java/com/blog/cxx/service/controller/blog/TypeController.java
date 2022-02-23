@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +47,9 @@ public class TypeController {
     @ApiOperation("查询所有分类")
     @GetMapping("/listAll")
     public R listAll(){
-        List<Type> typeList = typeService.list();
+        typeQueryWrapper.clear();
+        typeQueryWrapper.orderByAsc("type_name");
+        List<Type> typeList = typeMapper.selectList(typeQueryWrapper);
         return R.ok().data("typeList", typeList);
     }
 
@@ -55,6 +58,7 @@ public class TypeController {
     public R getAllTypeInfo(@RequestParam(defaultValue = "1") Integer currentPage,
                             @RequestParam(defaultValue = "10") Integer pageSize){
         Page<Type> typePage = new Page<>(currentPage, pageSize);
+        typeQueryWrapper.clear();
         typeQueryWrapper.orderByAsc("type_name");
         IPage<Type> typeIPage = typeMapper.selectPage(typePage, typeQueryWrapper);
 

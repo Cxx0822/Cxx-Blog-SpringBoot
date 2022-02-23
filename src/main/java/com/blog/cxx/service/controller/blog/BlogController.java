@@ -18,6 +18,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -56,6 +59,20 @@ public class BlogController {
     public R listAll() {
         List<Blog> blogList = blogService.list();
         return R.ok().data("blogList", blogList);
+    }
+
+    /*
+     * 分页 查询所有博客信息
+     * */
+    @ApiOperation("分页查询所有博客")
+    @GetMapping("/getAllBlogInfo")
+    public R getAllBlogInfo(@RequestParam Boolean isPublic,
+                            @RequestParam(defaultValue = "1") Integer currentPage,
+                            @RequestParam(defaultValue = "10") Integer pageSize) {
+        Page<BlogInfo> blogInfoPage = new Page<>(currentPage, pageSize);
+        IPage<BlogInfo> blogIPage = blogService.getAllBlogInfo(blogInfoPage, isPublic);
+
+        return R.ok().data("blogIPage", blogIPage);
     }
 
     /*
@@ -113,11 +130,17 @@ public class BlogController {
     @ApiOperation("创建博客")
     @PostMapping("/create")
     public R create(@RequestBody Blog blog) {
-        boolean result = blogService.save(blog);
-        if (result) {
-            return R.ok().message("创建成功");
+        List<Blog> blogList = blogService.query("title", blog.getTitle());
+
+        if (blogList.size() != 0) {
+            return R.error().message("博客已存在");
         } else {
-            return R.error().message("创建失败");
+            boolean result = blogService.save(blog);
+            if (result) {
+                return R.ok().message("创建成功");
+            } else {
+                return R.error().message("创建失败");
+            }
         }
     }
 
@@ -183,7 +206,10 @@ public class BlogController {
             return R.error().message("博客不存在");
         }
 
-        List<Type> typeList = typeService.query("type_name", typeName);
+        List<Type> typeList = null;
+
+        typeList = typeService.query("type_name", typeName);
+
         if (typeList.size() == 0) {
             return R.error().message("类别不存在");
         }

@@ -22,6 +22,11 @@ public interface BlogService extends IService<Blog> {
     List<Blog> query(String columnName, String columnValue);
 
     /*
+     * 分页查询所有博客
+     * */
+    IPage<BlogInfo> getAllBlogInfo(IPage<BlogInfo> page, Boolean isPublic);
+
+    /*
     * 根据用户名查询博客
     * */
     IPage<BlogInfo> getBlogByUsername(IPage<BlogInfo> page, String username, Boolean isPublic);

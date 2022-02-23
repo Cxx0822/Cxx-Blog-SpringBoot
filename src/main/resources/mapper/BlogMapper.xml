@@ -16,6 +16,28 @@
         <result property="updateTime" column="update_time"/>
     </resultMap>
 
+    <!-- 查询所有博客 -->
+    <select id="getAllBlogInfo" resultMap="BlogInfoResultMap">
+        select b.id, b.title, b.description, b.content, b.views, b.words,
+               u.username,
+               t.type_name,
+               b.status, b.create_time, b.update_time
+        from blog b, user u, type t, blog_type bt, blog_user bu
+        where b.id=bt.blog_id and t.id=bt.type_id and b.id=bu.blog_id and u.id=bu.user_id
+        order by b.create_time DESC
+    </select>
+
+    <!-- 查询所有公开博客 -->
+    <select id="getPublicBlogInfo" resultMap="BlogInfoResultMap">
+        select b.id, b.title, b.description, b.content, b.views, b.words,
+               u.username,
+               t.type_name,
+               b.status, b.create_time, b.update_time
+        from blog b, user u, type t, blog_type bt, blog_user bu
+        where b.status = 1 and b.id=bt.blog_id and t.id=bt.type_id and b.id=bu.blog_id and u.id=bu.user_id
+        order by b.create_time DESC
+    </select>
+
     <!-- 根据用户查询所有博客 -->
     <select id="getAllBlogInfoByUsername" resultMap="BlogInfoResultMap">
         select b.id, b.title, b.description, b.content, b.views, b.words,

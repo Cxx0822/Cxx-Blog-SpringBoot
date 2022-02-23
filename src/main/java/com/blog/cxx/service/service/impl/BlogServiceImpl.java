@@ -46,6 +46,17 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
         return blogMapper.selectList(blogQueryWrapper);
     }
 
+    @Override
+    public IPage<BlogInfo> getAllBlogInfo(IPage<BlogInfo> page, Boolean isPublic) {
+        IPage<BlogInfo> blogInfoIPage;
+        if (isPublic) {
+            blogInfoIPage = blogMapper.getPublicBlogInfo(page);
+        } else {
+            blogInfoIPage = blogMapper.getAllBlogInfo(page);
+        }
+        return blogInfoIPage;
+    }
+
     /*
     * 根据用户名获取博客信息
     * */

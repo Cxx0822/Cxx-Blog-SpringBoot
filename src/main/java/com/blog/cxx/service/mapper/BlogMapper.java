@@ -19,8 +19,18 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BlogMapper extends BaseMapper<Blog> {
     /*
-     * 根据用户查询所有博客
+     * 查询所有博客
      * 加上分页参数，需要放在第一个参数位置，下同
+     * */
+    IPage<BlogInfo> getAllBlogInfo(IPage<BlogInfo> blogInfoIPage);
+
+    /*
+     * 查询所有公开博客
+     * */
+    IPage<BlogInfo> getPublicBlogInfo(IPage<BlogInfo> blogInfoIPage);
+
+    /*
+     * 根据用户查询所有博客
      * */
     IPage<BlogInfo> getAllBlogInfoByUsername(IPage<BlogInfo> blogInfoIPage, String username);
 
